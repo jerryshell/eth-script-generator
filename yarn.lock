@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"98.css@^0.1.16":
+  version "0.1.16"
+  resolved "https://registry.npm.taobao.org/98.css/download/98.css-0.1.16.tgz#7e1d0ccf07e6c8ce69109fbb8fa5a530adab246d"
+  integrity sha1-fh0MzwfmyM5pEJ+7j6WlMK2rJG0=
+
 "@babel/code-frame@7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"

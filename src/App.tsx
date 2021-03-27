@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
+import '98.css';
 
 function App() {
     const [minerFilepath, setMinerFilepath] = useState('')
@@ -22,62 +23,60 @@ function App() {
     }
 
     return (
-        <div>
-            <div
-                className="window"
-                style={{width: '600px', margin: '0 auto'}}
-            >
-                <div className="title-bar">
-                    <div className="title-bar-text">
-                        ETH Script Generator
-                    </div>
+        <div
+            className="window"
+            style={{width: '600px'}}
+        >
+            <div className="title-bar">
+                <div className="title-bar-text">
+                    ETH Script Generator
                 </div>
-                <div className="window-body">
-                    <div className="field-row-stacked">
-                        <label>Miner filepath</label>
-                        <input
-                            type="text"
-                            onChange={e => setMinerFilepath(e.target.value)}
-                        />
-                    </div>
-                    <div className="field-row-stacked">
-                        <label>Fake process name</label>
-                        <input
-                            type="text"
-                            onChange={e => setFakeProcessName(e.target.value)}
-                        />
-                    </div>
-                    <div className="field-row-stacked">
-                        <label>Config</label>
-                        <textarea
-                            rows={10}
-                            onChange={e => setConfig(e.target.value)}
-                        />
-                    </div>
-                    <div className="field-row-stacked">
-                        <label>Config filename</label>
-                        <input
-                            type="text"
-                            onChange={e => setConfigFilename(e.target.value)}
-                        />
-                    </div>
-                    <div className="field-row-stacked">
-                        <label>Kill at</label>
-                        <input
-                            type="text"
-                            onChange={e => setKillAt(e.target.value)}
-                        />
-                    </div>
-                    <div className="field-row-stacked">
-                        <label>Script</label>
-                        <textarea
-                            rows={8}
-                            defaultValue={script}
-                        />
-                    </div>
-                    <div className="field-row">
-                        <button onClick={handleCopyScriptBtnClick}>Copy script</button>
-                    </div>
+            </div>
+            <div className="window-body">
+                <div className="field-row-stacked">
+                    <label>Miner filepath</label>
+                    <input
+                        type="text"
+                        onChange={e => setMinerFilepath(e.target.value)}
+                    />
+                </div>
+                <div className="field-row-stacked">
+                    <label>Fake process name</label>
+                    <input
+                        type="text"
+                        onChange={e => setFakeProcessName(e.target.value)}
+                    />
+                </div>
+                <div className="field-row-stacked">
+                    <label>Config</label>
+                    <textarea
+                        rows={10}
+                        onChange={e => setConfig(e.target.value)}
+                    />
+                </div>
+                <div className="field-row-stacked">
+                    <label>Config filename</label>
+                    <input
+                        type="text"
+                        onChange={e => setConfigFilename(e.target.value)}
+                    />
+                </div>
+                <div className="field-row-stacked">
+                    <label>Kill at</label>
+                    <input
+                        type="text"
+                        onChange={e => setKillAt(e.target.value)}
+                    />
+                </div>
+                <div className="field-row-stacked">
+                    <label>Script</label>
+                    <textarea
+                        rows={8}
+                        defaultValue={script}
+                    />
+                </div>
+                <div className="field-row">
+                    <button onClick={handleCopyScriptBtnClick}>Copy script</button>
                 </div>
             </div>
         </div>
