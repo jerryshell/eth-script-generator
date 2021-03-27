@@ -27,6 +27,15 @@ const App = () => {
         })
     }
 
+    const handleResetBtnClick = () => {
+        setMinerFilepath('')
+        setFakeProcessName('')
+        setConfig('')
+        setConfigFilename('')
+        setKillAt('')
+        setMessage('')
+    }
+
     return (
         <div
             className="window"
@@ -42,6 +51,7 @@ const App = () => {
                     <label>Miner filepath</label>
                     <input
                         type="text"
+                        value={minerFilepath}
                         onChange={e => setMinerFilepath(e.target.value)}
                     />
                 </div>
@@ -49,6 +59,7 @@ const App = () => {
                     <label>Fake process name</label>
                     <input
                         type="text"
+                        value={fakeProcessName}
                         onChange={e => setFakeProcessName(e.target.value)}
                     />
                 </div>
@@ -56,6 +67,7 @@ const App = () => {
                     <label>Config</label>
                     <textarea
                         rows={10}
+                        value={config}
                         onChange={e => setConfig(e.target.value)}
                     />
                 </div>
@@ -63,6 +75,7 @@ const App = () => {
                     <label>Config filename</label>
                     <input
                         type="text"
+                        value={configFilename}
                         onChange={e => setConfigFilename(e.target.value)}
                     />
                 </div>
@@ -70,6 +83,7 @@ const App = () => {
                     <label>Kill at</label>
                     <input
                         type="text"
+                        value={killAt}
                         onChange={e => setKillAt(e.target.value)}
                     />
                 </div>
@@ -77,11 +91,13 @@ const App = () => {
                     <label>Script</label>
                     <textarea
                         rows={8}
-                        defaultValue={script}
+                        disabled
+                        value={script}
                     />
                 </div>
                 <div className="field-row">
                     <button onClick={handleCopyScriptBtnClick}>Copy script</button>
+                    <button onClick={handleResetBtnClick}>Reset</button>
                 </div>
                 <div>
                     <p>{message}</p>
