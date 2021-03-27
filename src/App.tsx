@@ -27,6 +27,42 @@ const App = () => {
         })
     }
 
+    const handleSaveDataToLocalStorageBtnClick = () => {
+        const data = {
+            minerFilepath,
+            fakeProcessName,
+            config,
+            configFilename,
+            killAt,
+        }
+        localStorage.setItem('data', JSON.stringify(data))
+        setMessage('Data saved successfully')
+        setTimeout(() => {
+            setMessage('')
+        }, 3000)
+    }
+
+    const handleLoadDataFromLocalStorageBtnClick = () => {
+        const dataStr = localStorage.getItem('data')
+        if (dataStr == null) {
+            setMessage('The data in localStorage is empty')
+            setTimeout(() => {
+                setMessage('')
+            }, 3000)
+            return
+        }
+        const data = JSON.parse(dataStr);
+        setMinerFilepath(data.minerFilepath)
+        setFakeProcessName(data.fakeProcessName)
+        setConfig(data.config)
+        setConfigFilename(data.configFilename)
+        setKillAt(data.killAt)
+        setMessage('Data loaded successfully')
+        setTimeout(() => {
+            setMessage('')
+        }, 3000)
+    }
+
     const handleResetBtnClick = () => {
         setMinerFilepath('')
         setFakeProcessName('')
@@ -98,6 +134,8 @@ const App = () => {
                 <div className="field-row">
                     <button onClick={handleCopyScriptBtnClick}>Copy script</button>
                     <button onClick={handleResetBtnClick}>Reset</button>
+                    <button onClick={handleSaveDataToLocalStorageBtnClick}>Save data to local storage</button>
+                    <button onClick={handleLoadDataFromLocalStorageBtnClick}>Load data from local storage</button>
                 </div>
                 <div>
                     <p>{message}</p>
