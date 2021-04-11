@@ -14,6 +14,10 @@ yarn
 yarn start
 ```
 
+## Miner
+
+https://github.com/develsoftware/GMinerRelease/releases
+
 ## Screenshot
 
 ![screenshot](screenshot/screenshot.png)
