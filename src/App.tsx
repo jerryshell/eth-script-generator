@@ -139,11 +139,10 @@ const App = () => {
           />
         </div>
         <div className="field-row-stacked">
-          <label>Rest</label>
-          <button onClick={handleResetBtnClick}>Reset</button>
+          <label>Rest & Save & Load</label>
         </div>
-        <div className="field-row-stacked">
-          <label>Save & Load</label>
+        <div className="field-row">
+          <button onClick={handleResetBtnClick}>Reset</button>
           <button onClick={handleSaveDataToLocalStorageBtnClick}>Save data to local storage</button>
           <button onClick={handleLoadDataFromLocalStorageBtnClick}>Load data from local storage</button>
         </div>
