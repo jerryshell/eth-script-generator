@@ -90,7 +90,7 @@ const App = () => {
   return (
     <div
       className="window"
-      style={{ width: '600px' }}
+      style={{ width: '700px' }}
     >
       <div className="title-bar">
         <div className="title-bar-text">
