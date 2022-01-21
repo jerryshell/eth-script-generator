@@ -187,10 +187,10 @@ const App = () => {
                     <label htmlFor="sudo">sudo</label>
                 </div>
                 <div className="field-row-stacked">
-          <textarea
-              disabled
-              value={sudoFlag ? clearLoginHistoryScriptWithSudo : clearLoginHistoryScript}
-          />
+                    <textarea
+                        disabled
+                        value={sudoFlag ? clearLoginHistoryScriptWithSudo : clearLoginHistoryScript}
+                    />
                     <button onClick={handleCopyClearLoginHistoryScriptBtnClick}>Copy clear login history script</button>
                 </div>
                 <div>
